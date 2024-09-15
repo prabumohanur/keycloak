@@ -18,14 +18,29 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
-          envFrom:
-            - configMapRef:
-                name: postgres-secret
-                name: keycloak 
+          env:
+          - name: POSTGRES_DB
+            value: keycloak
+          - name: POSTGRES_USER
+            value: keycloak
+          - name: POSTGRES_PASSWORD
+            value: keycloak
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgresdata
       volumes:
-        - name: postgresdata
-          persistentVolumeClaim:
-            claimName: postgres-volume-claim
+      - name: postgresdata
+        emptyDir: {}
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+  type: ClusterIP
