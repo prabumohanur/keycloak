@@ -1,4 +1,5 @@
-#validate the db connection.
+#validate the db connection after deployment.
+
 
 kubectl exec -it deployment/postgres -- bash
 
@@ -20,9 +21,12 @@ the main turn around happaned when adding the below flag to move the keycloak fr
         args:
         - start-dev
         - '--spi-db-schema-manager-updates=update'
- 
+
+-------------------------------------
+------------------------------------- 
 
 16 - Sep - 2024
-The Above deployment configuration are update to helm chart.
+The deployment configuration are update to helm chart.
+clone the repo and get the keycloak folder and try the installation.
 
 helm install my-keycloak . --dry-run -n keycloak-helm (clonf the repo and change the director to 25.0/helm and run this command)
