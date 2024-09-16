@@ -22,3 +22,5 @@ the main turn around happaned when adding the below flag to move the keycloak fr
         - '--spi-db-schema-manager-updates=update'
  
 
+16 - Sep - 2024
+The Above configuration are update to helm chart.
