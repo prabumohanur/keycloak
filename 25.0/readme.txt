@@ -27,6 +27,6 @@ the main turn around happaned when adding the below flag to move the keycloak fr
 
 16 - Sep - 2024
 The deployment configuration are update to helm chart.
-clone the repo and get the keycloak folder and try the installation.
+clone the repo and get in to helm_keycloak folder and try the installation.
 
-helm install my-keycloak . --dry-run -n keycloak-helm (clonf the repo and change the director to 25.0/helm and run this command)
+helm install my-keycloak . --dry-run -n keycloak-helm
