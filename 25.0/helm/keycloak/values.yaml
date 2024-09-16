@@ -1,0 +1,49 @@
+keycloak:
+  image:
+    repository: quay.io/keycloak/keycloak
+    tag: 25.0.1
+    pullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    type: NodePort
+    port: 8080
+    nodePort: 32081
+  env:
+    KC_DB: postgres
+    KC_DB_URL_DATABASE: keycloak
+    KC_DB_URL_PORT: "5432"
+    KC_DB_USERNAME: keycloak
+    KC_DB_PASSWORD: keycloak
+    KC_HOSTNAME: 192.168.2.91
+    KEYCLOAK_ADMIN: admin
+    KEYCLOAK_ADMIN_PASSWORD: admin
+  args:
+    - start-dev
+    - '--spi-db-schema-manager-updates=update'
+  volumeMounts:
+    - mountPath: /opt/keycloak/data
+      name: keycloak-data
+  volumes:
+    - name: keycloak-data
+      emptyDir: {}
+
+postgres:
+  image:
+    repository: postgres
+    tag: "13"
+    pullPolicy: IfNotPresent
+  replicas: 1
+  service:
+    name: postgres-service
+    type: ClusterIP
+    port: 5432
+  env:
+    POSTGRES_DB: keycloak
+    POSTGRES_USER: keycloak
+    POSTGRES_PASSWORD: keycloak
+  volumeMounts:
+    - mountPath: /var/lib/postgresql/data
+      name: postgresdata
+  volumes:
+    - name: postgresdata
+      emptyDir: {}
